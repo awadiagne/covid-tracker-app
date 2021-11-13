@@ -23,6 +23,15 @@ public class CovidPatient {
         this.testResult = testResult;
     }
 
+    public CovidPatient(Long id, String name, Date dateOfBirth, String address, Date testDate, boolean testResult) {
+        this.id = id;
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
+        this.testDate = testDate;
+        this.testResult = testResult;
+    }
+
     public Long getId() {
         return id;
     }

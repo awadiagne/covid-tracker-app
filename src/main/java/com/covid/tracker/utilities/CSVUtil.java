@@ -4,20 +4,23 @@ import com.covid.tracker.beans.CovidPatient;
 import com.covid.tracker.beans.VaccinatedPeople;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Component
 public class CSVUtil {
@@ -33,8 +36,8 @@ public class CSVUtil {
         return true;
     }
 
-    public static List<CovidPatient> loadCSVForCovidPatientsInDB(InputStream csvStream) {
-        log.info("---------- LoadCSVForCovidPatientsInDB Begin ----------");
+    public static List<CovidPatient> loadCSVForAddingCovidPatientsInDB(InputStream csvStream) {
+        log.info("---------- loadCSVForAddingCovidPatientsInDB Begin ----------");
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(csvStream, "UTF-8"));
              CSVParser csvParser = new CSVParser(fileReader,
                      CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());){
@@ -55,15 +58,15 @@ public class CSVUtil {
             }
             return covidPatients;
         } catch (IOException e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage());
             throw new RuntimeException("Error while parsing CSV file: " + e.getMessage());
         }catch (ParseException e){
-            log.info(e.getMessage());
+            log.error(e.getMessage());
             throw new RuntimeException("Error while parsing CSV file dates: " + e.getMessage());
         }
     }
 
-    public static List<VaccinatedPeople> loadCSVForVaccinatedPeopleInDB(InputStream csvStream) {
+    public static List<VaccinatedPeople> loadCSVForAddingVaccinatedPeopleInDB(InputStream csvStream) {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(csvStream, "UTF-8"));
              CSVParser csvParser = new CSVParser(fileReader,
                      CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
@@ -87,6 +90,84 @@ public class CSVUtil {
             throw new RuntimeException("Error while parsing CSV file: " + e.getMessage());
         } catch (ParseException e) {
             throw new RuntimeException("Error while parsing CSV file dates: " + e.getMessage());
+        }
+    }
+
+    public static List<CovidPatient> loadCSVForModifyingCovidPatientsInDB (InputStream csvStream){
+        log.info("---------- loadCSVForModifyingCovidPatientsInDB Begin ----------");
+        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(csvStream, "UTF-8"));
+             CSVParser csvParser = new CSVParser(fileReader,
+                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());){
+
+            List<CovidPatient> covidPatients = new ArrayList<CovidPatient>();
+
+            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+
+            for (CSVRecord csvRecord : csvRecords) {
+                CovidPatient covidPatient = new CovidPatient(
+                        Long.parseLong(csvRecord.get(0)),
+                        csvRecord.get(1),
+                        new SimpleDateFormat("dd/MM/yyyy").parse(csvRecord.get(2)),
+                        csvRecord.get(3),
+                        new SimpleDateFormat("dd/MM/yyyy").parse(csvRecord.get(4)),
+                        csvRecord.get(5).equalsIgnoreCase(POS)
+                );
+                covidPatients.add(covidPatient);
+            }
+            return covidPatients;
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            throw new RuntimeException("Error while parsing CSV file: " + e.getMessage());
+        }catch (ParseException e){
+            log.error(e.getMessage());
+            throw new RuntimeException("Error while parsing CSV file dates: " + e.getMessage());
+        }
+    }
+
+    public static List<VaccinatedPeople> loadCSVForModifyingVaccinatedPeopleInDB (InputStream csvStream){
+        log.info("---------- loadCSVForModifyingVaccinatedPeopleInDB Begin ----------");
+        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(csvStream, "UTF-8"));
+             CSVParser csvParser = new CSVParser(fileReader,
+                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
+
+            List<VaccinatedPeople> vaccinatedPeoples = new ArrayList<VaccinatedPeople>();
+
+            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+
+            for (CSVRecord csvRecord : csvRecords) {
+                VaccinatedPeople vaccinatedPeople = new VaccinatedPeople(
+                        Long.parseLong(csvRecord.get(0)),
+                        csvRecord.get(1),
+                        new SimpleDateFormat("dd/MM/yyyy").parse(csvRecord.get(2)),
+                        csvRecord.get(3),
+                        new SimpleDateFormat("dd/MM/yyyy").parse(csvRecord.get(4)),
+                        new SimpleDateFormat("dd/MM/yyyy").parse(csvRecord.get(5))
+                );
+                vaccinatedPeoples.add(vaccinatedPeople);
+            }
+            return vaccinatedPeoples;
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            throw new RuntimeException("Error while parsing CSV file: " + e.getMessage());
+        } catch (ParseException e) {
+            log.error(e.getMessage());
+            throw new RuntimeException("Error while parsing CSV file dates: " + e.getMessage());
+        }
+    }
+
+    public static void getCovidPatients(List<CovidPatient> covidPatients) {
+        log.info("---------- getCovidPatients Begin ----------");
+        String dateTimeLabel = OffsetDateTime.now( ZoneOffset.UTC ).truncatedTo( ChronoUnit.MINUTES ).format( DateTimeFormatter.ofPattern( "uuuuMMdd'T'HHmmX" , Locale.US ) );
+        String fileNamePath = "Report_from_" + dateTimeLabel + ".csv";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileNamePath));
+             CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Name", "Date Of Birth", "Address", "Test Date", "Test Result"));) {
+
+            for (CovidPatient covidPatient : covidPatients) {
+                csvPrinter.printRecord(covidPatient.getName(), covidPatient.getDateOfBirth(), covidPatient.getAddress(), covidPatient.getTestDate(), covidPatient.isTestResult());
+            }
+            csvPrinter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

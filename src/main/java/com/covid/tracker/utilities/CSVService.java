@@ -7,6 +7,8 @@ import com.covid.tracker.beans.CovidPatientRepository;
 import com.covid.tracker.beans.VaccinatedPeople;
 import com.covid.tracker.beans.VaccinatedPeopleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,27 +27,61 @@ public class CSVService {
     @Autowired
     VaccinatedPeopleRepository vaccinatedPeopleRepository;
 
-    public void saveCovidPatients(MultipartFile file) {
+    public String addCovidPatients(MultipartFile file) {
+        String result = "";
         try {
-            List<CovidPatient> covidPatients = CSVUtil.loadCSVForCovidPatientsInDB(file.getInputStream());
+            List<CovidPatient> covidPatients = CSVUtil.loadCSVForAddingCovidPatientsInDB(file.getInputStream());
+            covidPatientRepository.saveAll(covidPatients);
+            result = "Records saved in DB";
         } catch (IOException e) {
-            throw new RuntimeException("fail to store csv data: " + e.getMessage());
+            result = "Records not saved in DB ";
+            throw new RuntimeException("Error while persisting data in DB: " + e.getMessage());
         }
+        return result;
     }
 
-    public void saveVaccinatedPeople(MultipartFile file) {
+    public String modifyCovidPatients(MultipartFile file) {
+        String result = "";
         try {
-            List<VaccinatedPeople> vaccinatedPeople = CSVUtil.loadCSVForVaccinatedPeopleInDB(file.getInputStream());
+            List<CovidPatient> covidPatients = CSVUtil.loadCSVForModifyingCovidPatientsInDB(file.getInputStream());
+            covidPatientRepository.saveAll(covidPatients);
+            result = "Records saved in DB";
         } catch (IOException e) {
-            throw new RuntimeException("fail to store csv data: " + e.getMessage());
+            throw new RuntimeException("Error while persisting data in DB: " + e.getMessage());
         }
+        return result;
     }
 
-    public List<CovidPatient> getAllCovidPatients() {
-        return covidPatientRepository.findAll();
+    public String addVaccinatedPeople(MultipartFile file) {
+        String result = "";
+        try {
+            List<VaccinatedPeople> vaccinatedPeople = CSVUtil.loadCSVForAddingVaccinatedPeopleInDB(file.getInputStream());
+            vaccinatedPeopleRepository.saveAll(vaccinatedPeople);
+            result = "Records saved in DB";
+        } catch (IOException e) {
+            throw new RuntimeException("Error while persisting data in DB: " + e.getMessage());
+        }
+        return result;
     }
 
-    public List<VaccinatedPeople> getAllVaccinatedPeople() {
-        return vaccinatedPeopleRepository.findAll();
+    public String modifyVaccinatedPeople(MultipartFile file) {
+        String result = "";
+        try {
+            List<VaccinatedPeople> vaccinatedPeople = CSVUtil.loadCSVForModifyingVaccinatedPeopleInDB(file.getInputStream());
+            vaccinatedPeopleRepository.saveAll(vaccinatedPeople);
+            result = "Records saved in DB";
+        } catch (IOException e) {
+            throw new RuntimeException("Error while persisting data in DB: " + e.getMessage());
+        }
+        return result;
+    }
+
+    public Page<CovidPatient> getCovidPatients(Pageable pageable) {
+        //CSVUtil.getCovidPatients(covidPatientRepository.findAll());
+        return covidPatientRepository.findAll(pageable);
+    }
+
+    public Page<VaccinatedPeople> getVaccinatedPeople(Pageable pageable) {
+        return vaccinatedPeopleRepository.findAll(pageable);
     }
 }

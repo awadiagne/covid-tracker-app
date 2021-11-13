@@ -23,6 +23,15 @@ public class VaccinatedPeople{
         this.secondVaccineDate = secondVaccineDate;
     }
 
+    public VaccinatedPeople(Long id,String name, Date dateOfBirth, String address, Date firstVaccineDate, Date secondVaccineDate) {
+        this.id = id;
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
+        this.firstVaccineDate = firstVaccineDate;
+        this.secondVaccineDate = secondVaccineDate;
+    }
+
     public Long getId() {
         return id;
     }
