@@ -14,8 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
+import java.io.IOException;
 
 @RestController
 class CovidController {
@@ -35,7 +34,7 @@ class CovidController {
         
         //Bulk add Covid Patients
         @PostMapping("/addCovidPatients")
-        public ResponseEntity<String> addCovidPatients(@RequestParam("file") MultipartFile file) {
+        public ResponseEntity<String> addCovidPatients(@RequestParam("file") MultipartFile file) throws IOException {
             log.info("---------- Add Covid Patients Begin----------");
             String message = "";
 
@@ -45,80 +44,63 @@ class CovidController {
                     return ResponseEntity.status(HttpStatus.OK).body( "\" message \": \" "+ message +" \"");
                 }
                 message = "Please upload a csv file!";
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("\" message \": \" "+ message +" \"");
+                return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body("\" message \": \" "+ message +" \"");
         }
 
         //Bulk add  Vaccinated People
         @PostMapping("/addVaccinatedPeople")
-        public ResponseEntity<String>  addVaccinatedPeople(@RequestParam("file") MultipartFile file) {
+        public ResponseEntity<String>  addVaccinatedPeople(@RequestParam("file") MultipartFile file) throws IOException {
             log.info("---------- Add Vaccinated People Begin----------");
             String message = "";
 
             if (CSVUtil.isCSVFile(file)) {
-                try {
                     fileService.addVaccinatedPeople(file);
                     message = "Uploaded the file successfully: " + file.getOriginalFilename();
                     return ResponseEntity.status(HttpStatus.OK).body("\" message \": \" " + message + " \"");
-                } catch (Exception e) {
-                    message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-                    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("\" message \": \" " + message + " \"");
-                }
             }
             message = "Please upload a csv file!";
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("\" message \": \" " + message + " \"");
+            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body("\" message \": \" " + message + " \"");
         }
 
         // Bulk modify Covid Patients
         @PutMapping("/modifyCovidPatients")
-        public ResponseEntity<String> modifyCovidPatients(@RequestParam("file") MultipartFile file) {
+        public ResponseEntity<String> modifyCovidPatients(@RequestParam("file") MultipartFile file) throws IOException {
             log.info("---------- Modify Covid Patients Begin----------");
             String message = "";
 
             if (CSVUtil.isCSVFile(file)) {
-                try {
-                    fileService.modifyCovidPatients(file);
-                    message = "Uploaded the file successfully: " + file.getOriginalFilename();
-                    return ResponseEntity.status(HttpStatus.OK).body("\" message \": \" " + message + " \"");
-                } catch (Exception e) {
-                    message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-                    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("\" message \": \" " + message + " \"");
-                }
+                fileService.modifyCovidPatients(file);
+                message = "Uploaded the file successfully: " + file.getOriginalFilename();
+                return ResponseEntity.status(HttpStatus.OK).body("\" message \": \" " + message + " \"");
             }
             message = "Please upload a csv file!";
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("\" message \": \" " + message + " \"");
+            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body("\" message \": \" " + message + " \"");
         }
 
         // Bulk modify Vaccinated People
         @PutMapping("/modifyVaccinatedPeople")
-        public ResponseEntity<String> modifyVaccinatedPeople(@RequestParam("file") MultipartFile file) {
+        public ResponseEntity<String> modifyVaccinatedPeople(@RequestParam("file") MultipartFile file) throws IOException {
             log.info("---------- Modify Vaccinated People Begin----------");
             String message = "";
 
             if (CSVUtil.isCSVFile(file)) {
-                try {
-                    fileService.modifyVaccinatedPeople(file);
-                    message = "Uploaded the file successfully: " + file.getOriginalFilename();
-                    return ResponseEntity.status(HttpStatus.OK).body("\" message \": \" " + message + " \"");
-                } catch (Exception e) {
-                    message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-                    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("\" message \": \" " + message + " \"");
-                }
+                fileService.modifyVaccinatedPeople(file);
+                message = "Uploaded the file successfully: " + file.getOriginalFilename();
+                return ResponseEntity.status(HttpStatus.OK).body("\" message \": \" " + message + " \"");
             }
             message = "Please upload a csv file!";
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("\" message \": \" " + message + " \"");
+            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body("\" message \": \" " + message + " \"");
         }
 
         // Get Covid Patients
         @GetMapping("/getCovidPatients")
         public Page<CovidPatient> getCovidPatients(Pageable pageable)  {
             return fileService.getCovidPatients(pageable);
-            //return ResponseEntity.status(HttpStatus.OK).body(fileService.getAllCovidPatients().toString());
         }
 
         // Get Vaccinated People
         @GetMapping("/getVaccinatedPeople")
         public Page<VaccinatedPeople> getVaccinatedPeople(Pageable pageable)  {
             return fileService.getVaccinatedPeople(pageable);
-            //return ResponseEntity.status(HttpStatus.OK).body(fileService.getAllCovidPatients().toString());
         }
 }
