@@ -1,7 +1,5 @@
 package com.covid.tracker.utilities;
 
-import java.util.stream.Collectors;
-
 import com.covid.tracker.beans.CovidPatient;
 import com.covid.tracker.beans.CovidPatientRepository;
 import com.covid.tracker.beans.VaccinatedPeople;

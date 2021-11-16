@@ -48,9 +48,9 @@ public class CSVUtil {
             for (CSVRecord csvRecord : csvRecords) {
                 CovidPatient covidPatient = new CovidPatient(
                         csvRecord.get(0),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(csvRecord.get(1)),
+                        new SimpleDateFormat("dd-MM-yyyy").parse(csvRecord.get(1)),
                         csvRecord.get(2),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(csvRecord.get(3)),
+                        new SimpleDateFormat("dd-MM-yyyy").parse(csvRecord.get(3)),
                         csvRecord.get(4).equalsIgnoreCase(POS)
                 );
                 covidPatients.add(covidPatient);
@@ -109,9 +109,9 @@ public class CSVUtil {
                 CovidPatient covidPatient = new CovidPatient(
                         Long.parseLong(csvRecord.get(0)),
                         csvRecord.get(1),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(csvRecord.get(2)),
+                        new SimpleDateFormat("dd-MM-yyyy").parse(csvRecord.get(2)),
                         csvRecord.get(3),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(csvRecord.get(4)),
+                        new SimpleDateFormat("dd-MM-yyyy").parse(csvRecord.get(4)),
                         csvRecord.get(5).equalsIgnoreCase(POS)
                 );
                 covidPatients.add(covidPatient);
@@ -141,10 +141,10 @@ public class CSVUtil {
                 VaccinatedPeople vaccinatedPeople = new VaccinatedPeople(
                         Long.parseLong(csvRecord.get(0)),
                         csvRecord.get(1),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(csvRecord.get(2)),
+                        new SimpleDateFormat("dd-MM-yyyy").parse(csvRecord.get(2)),
                         csvRecord.get(3),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(csvRecord.get(4)),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(csvRecord.get(5))
+                        new SimpleDateFormat("dd-MM-yyyy").parse(csvRecord.get(4)),
+                        new SimpleDateFormat("dd-MM-yyyy").parse(csvRecord.get(5))
                 );
                 vaccinatedPeoples.add(vaccinatedPeople);
             }
