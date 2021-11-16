@@ -15,6 +15,7 @@ public class CovidPatient {
     private Date testDate;
     private boolean testResult;
 
+    public CovidPatient(){}
     public CovidPatient(String name, Date dateOfBirth, String address, Date testDate, boolean testResult) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -80,25 +81,8 @@ public class CovidPatient {
         this.testResult = testResult;
     }
 
-    /*@Override
-    public boolean equals(Object o) {
-
-        if (this == o)
-            return true;
-        if (!(o instanceof Patient))
-            return false;
-        Patient patient = (Patient) o;
-        return Objects.equals(this.id, patient.id) && Objects.equals(this.name, patient.name)
-                && Objects.equals(this.role, patient.role);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.id, this.name, this.role);
-    }*/
-
     @Override
     public String toString() {
-        return "Patient {" + "id=" + this.id + ", name='" + this.name + '\'' + ", Date Of Birth ='" + this.dateOfBirth + '\'' + ", Address ='" + this.address  + '\'' + '}' + ", Test Date ='" + this.testDate + '\'' + ", Test Result ='" + this.testResult;
+        return "Covid Patient {" + "id=" + this.id + ", name='" + this.name + '\'' + ", Date Of Birth ='" + this.dateOfBirth + '\'' + ", Address ='" + this.address  + '\'' + '}' + ", Test Date ='" + this.testDate + '\'' + ", Test Result ='" + this.testResult;
     }
 }
