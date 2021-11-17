@@ -35,11 +35,11 @@ public class CSVUtil {
         return  TYPE.equals(file.getContentType());
     }
 
-    public static List<CovidPatient> loadCSVForAddingCovidPatientsInDB(InputStream csvStream) {
+    public static List<CovidPatient> loadCSVForAddingCovidPatientsInDB(InputStream csvStream) throws IOException, ParseException{
         log.info("---------- loadCSVForAddingCovidPatientsInDB Begin ----------");
-        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(csvStream, StandardCharsets.UTF_8));
+        BufferedReader fileReader = new BufferedReader(new InputStreamReader(csvStream, StandardCharsets.UTF_8));
              CSVParser csvParser = new CSVParser(fileReader,
-                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())){
+                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
 
             List<CovidPatient> covidPatients = new ArrayList<>();
 
@@ -57,20 +57,13 @@ public class CSVUtil {
             }
             log.info("---------- loadCSVForAddingCovidPatientsInDB End ----------");
             return covidPatients;
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException("Error while parsing CSV file: " + e.getMessage());
-        }catch (ParseException e){
-            log.error(e.getMessage());
-            throw new RuntimeException("Error while parsing CSV file dates: " + e.getMessage());
-        }
     }
 
-    public static List<VaccinatedPeople> loadCSVForAddingVaccinatedPeopleInDB(InputStream csvStream) {
+    public static List<VaccinatedPeople> loadCSVForAddingVaccinatedPeopleInDB(InputStream csvStream) throws IOException, ParseException{
         log.info("---------- loadCSVForAddingVaccinatedPeopleInDB Begin ----------");
-        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(csvStream, StandardCharsets.UTF_8));
+        BufferedReader fileReader = new BufferedReader(new InputStreamReader(csvStream, StandardCharsets.UTF_8));
              CSVParser csvParser = new CSVParser(fileReader,
-                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
+                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
 
             List<VaccinatedPeople> vaccinatedPeoples = new ArrayList<>();
 
@@ -79,27 +72,22 @@ public class CSVUtil {
             for (CSVRecord csvRecord : csvRecords) {
                 VaccinatedPeople vaccinatedPeople = new VaccinatedPeople(
                         csvRecord.get(0),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(csvRecord.get(1)),
+                        new SimpleDateFormat("dd-MM-yyyy").parse(csvRecord.get(1)),
                         csvRecord.get(2),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(csvRecord.get(3)),
-                        new SimpleDateFormat("dd/MM/yyyy").parse(csvRecord.get(4))
+                        new SimpleDateFormat("dd-MM-yyyy").parse(csvRecord.get(3)),
+                        new SimpleDateFormat("dd-MM-yyyy").parse(csvRecord.get(4))
                 );
                 vaccinatedPeoples.add(vaccinatedPeople);
             }
             log.info("---------- loadCSVForAddingVaccinatedPeopleInDB End ----------");
             return vaccinatedPeoples;
-        } catch (IOException e) {
-            throw new RuntimeException("Error while parsing CSV file: " + e.getMessage());
-        } catch (ParseException e) {
-            throw new RuntimeException("Error while parsing CSV file dates: " + e.getMessage());
-        }
     }
 
-    public static List<CovidPatient> loadCSVForModifyingCovidPatientsInDB (InputStream csvStream){
+    public static List<CovidPatient> loadCSVForModifyingCovidPatientsInDB (InputStream csvStream) throws IOException, ParseException {
         log.info("---------- loadCSVForModifyingCovidPatientsInDB Begin ----------");
-        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(csvStream, StandardCharsets.UTF_8));
-             CSVParser csvParser = new CSVParser(fileReader,
-                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())){
+        BufferedReader fileReader = new BufferedReader(new InputStreamReader(csvStream, StandardCharsets.UTF_8));
+        CSVParser csvParser = new CSVParser(fileReader,
+                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
 
             List<CovidPatient> covidPatients = new ArrayList<>();
 
@@ -118,20 +106,14 @@ public class CSVUtil {
             }
             log.info("---------- loadCSVForModifyingCovidPatientsInDB End ----------");
             return covidPatients;
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException("Error while parsing CSV file: " + e.getMessage());
-        }catch (ParseException e){
-            log.error(e.getMessage());
-            throw new RuntimeException("Error while parsing CSV file dates: " + e.getMessage());
-        }
+
     }
 
-    public static List<VaccinatedPeople> loadCSVForModifyingVaccinatedPeopleInDB (InputStream csvStream){
+    public static List<VaccinatedPeople> loadCSVForModifyingVaccinatedPeopleInDB (InputStream csvStream) throws IOException, ParseException{
         log.info("---------- loadCSVForModifyingVaccinatedPeopleInDB Begin ----------");
-        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(csvStream, StandardCharsets.UTF_8));
+        BufferedReader fileReader = new BufferedReader(new InputStreamReader(csvStream, StandardCharsets.UTF_8));
              CSVParser csvParser = new CSVParser(fileReader,
-                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
+                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
 
             List<VaccinatedPeople> vaccinatedPeoples = new ArrayList<>();
 
@@ -150,13 +132,6 @@ public class CSVUtil {
             }
             log.info("---------- loadCSVForModifyingVaccinatedPeopleInDB End ----------");
             return vaccinatedPeoples;
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException("Error while parsing CSV file: " + e.getMessage());
-        } catch (ParseException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException("Error while parsing CSV file dates: " + e.getMessage());
-        }
     }
 
     public static void getCovidPatients(List<CovidPatient> covidPatients) {

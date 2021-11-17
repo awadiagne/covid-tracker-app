@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import javax.persistence.NoResultException;
 import java.io.IOException;
+import java.text.ParseException;
 
 @RestControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -21,6 +22,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(IOException.class)
     private ResponseEntity<ExceptionModel> handleIOException(IOException ex){
         ExceptionModel error = new ExceptionModel(HttpStatus.INTERNAL_SERVER_ERROR, "Error while saving records in DB", ex.getMessage());
+
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(ParseException.class)
+    private ResponseEntity<ExceptionModel> handleIOException(ParseException ex){
+        ExceptionModel error = new ExceptionModel(HttpStatus.INTERNAL_SERVER_ERROR, "Error while parsing CSV File. Incorrect records", ex.getMessage());
 
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }

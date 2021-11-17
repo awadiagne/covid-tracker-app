@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.NoResultException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
@@ -26,7 +27,7 @@ public class CSVService {
     @Autowired
     VaccinatedPeopleRepository vaccinatedPeopleRepository;
 
-    public String addCovidPatients(MultipartFile file) throws IOException {
+    public String addCovidPatients(MultipartFile file) throws IOException, ParseException {
         String result = "";
         List<CovidPatient> covidPatients = CSVUtil.loadCSVForAddingCovidPatientsInDB(file.getInputStream());
         covidPatientRepository.saveAll(covidPatients);
@@ -34,7 +35,7 @@ public class CSVService {
         return result;
     }
 
-    public String modifyCovidPatients(MultipartFile file) throws IOException {
+    public String modifyCovidPatients(MultipartFile file) throws IOException, ParseException {
         String result = "";
         List<CovidPatient> covidPatients = CSVUtil.loadCSVForModifyingCovidPatientsInDB(file.getInputStream());
         covidPatientRepository.saveAll(covidPatients);
@@ -42,7 +43,7 @@ public class CSVService {
         return result;
     }
 
-    public String addVaccinatedPeople(MultipartFile file) throws IOException {
+    public String addVaccinatedPeople(MultipartFile file) throws IOException, ParseException {
         String result = "";
         List<VaccinatedPeople> vaccinatedPeople = CSVUtil.loadCSVForAddingVaccinatedPeopleInDB(file.getInputStream());
         vaccinatedPeopleRepository.saveAll(vaccinatedPeople);
@@ -50,7 +51,7 @@ public class CSVService {
         return result;
     }
 
-    public String modifyVaccinatedPeople(MultipartFile file) throws IOException {
+    public String modifyVaccinatedPeople(MultipartFile file) throws IOException, ParseException {
         String result = "";
         List<VaccinatedPeople> vaccinatedPeople = CSVUtil.loadCSVForModifyingVaccinatedPeopleInDB(file.getInputStream());
         vaccinatedPeopleRepository.saveAll(vaccinatedPeople);

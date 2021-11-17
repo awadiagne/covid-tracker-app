@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 @RestController
 class CovidController {
@@ -26,7 +27,7 @@ class CovidController {
         @GetMapping("/")
         public ResponseEntity<String>  home(){
             log.info("---------- Home Begin----------");
-            String message = "Welcome to the upload covid cases and vaccinated people service ! \nThe CSV Files to upload are expected to be in this format :  {Name,Date of Birth,Address,Test Date,Test Result} for Covid Patients and {Name,Date of Birth,Address,First Vaccine Date,Second Vaccine Date}";
+            String message = "Welcome to the upload covid cases and vaccinated people service ! \nThe CSV Files to upload are expected to be in this format :  {Name,Date of Birth,Address,Test Date,Test Result} for Covid Patients and {Name,Date of Birth,Address,First Vaccine Date,Second Vaccine Date} for Vaccinated People";
             log.info("Displaying : "+message);
             log.info("---------- Home End----------");
             return ResponseEntity.status(HttpStatus.OK).body(message);
@@ -34,7 +35,7 @@ class CovidController {
         
         //Bulk add Covid Patients
         @PostMapping("/addCovidPatients")
-        public ResponseEntity<String> addCovidPatients(@RequestParam("file") MultipartFile file) throws IOException {
+        public ResponseEntity<String> addCovidPatients(@RequestParam("file") MultipartFile file) throws IOException, ParseException {
             log.info("---------- Add Covid Patients Begin----------");
             String message = "";
 
@@ -49,7 +50,7 @@ class CovidController {
 
         //Bulk add  Vaccinated People
         @PostMapping("/addVaccinatedPeople")
-        public ResponseEntity<String>  addVaccinatedPeople(@RequestParam("file") MultipartFile file) throws IOException {
+        public ResponseEntity<String>  addVaccinatedPeople(@RequestParam("file") MultipartFile file) throws IOException, ParseException {
             log.info("---------- Add Vaccinated People Begin----------");
             String message = "";
 
@@ -64,7 +65,7 @@ class CovidController {
 
         // Bulk modify Covid Patients
         @PutMapping("/modifyCovidPatients")
-        public ResponseEntity<String> modifyCovidPatients(@RequestParam("file") MultipartFile file) throws IOException {
+        public ResponseEntity<String> modifyCovidPatients(@RequestParam("file") MultipartFile file) throws IOException, ParseException {
             log.info("---------- Modify Covid Patients Begin----------");
             String message = "";
 
@@ -79,7 +80,7 @@ class CovidController {
 
         // Bulk modify Vaccinated People
         @PutMapping("/modifyVaccinatedPeople")
-        public ResponseEntity<String> modifyVaccinatedPeople(@RequestParam("file") MultipartFile file) throws IOException {
+        public ResponseEntity<String> modifyVaccinatedPeople(@RequestParam("file") MultipartFile file) throws IOException, ParseException {
             log.info("---------- Modify Vaccinated People Begin----------");
             String message = "";
 
