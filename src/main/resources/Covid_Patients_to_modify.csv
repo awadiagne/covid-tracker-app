@@ -1,20 +1,20 @@
 Id,Name,Date of Birth,Address, Test Date, Test Result
-1,Awa, 26/08/1994, Thiaroye Azur, 05/11/2021,negative
-2,Aida, 05/07/1990,HLM 6, 05/11/2021,negative
-3,Khady, 27/10/1965, Scat Urbam, 05/11/2021,positive
-4,Maty, 18/03/1997, Cité Isra, 05/11/2021,negative
-5,Mamy, 09/02/2000,Mermoz, 02/11/2021,positive
-6,Kany, 18/12/1994, HLM Grand Yoff, 02/11/2021,negative
-7,Vanessa, 10/06/1994,Ouest Foire, 02/11/2021,negative
-8,Chérif, 20/11/1959, Diourbel, 02/11/2021,negative
-9,Abdoulaye,08/04/1986, Bambey, 02/11/2021,negative
-10,Cheikh, 26/10/2002,Jet d'eau, 02/11/2021,negative
-11,Malick, 26/02/2006,Cité Ousmane Fall, 02/11/2021,positive
-12,Yacine, 31/10/1999, Colobane, 02/11/2021,negative
-13,Kadia, 10/10/1992,HLM Grand Médine, 02/11/2021,negative
-14,Bintou, 17/12/1993,Keur Mbaye Fall, 02/11/2021,positive
-15,Diarra, 17/09/1993,Sicap Foire, 02/11/2021,negative
-16,Néné, 20/07/1950,Mamelles, 02/11/2021,positive
-17,Fanta, 05/11/2020,Sicap Mbao, 02/11/2021,positive
-18,Moussa, 11/02/1992,Parcelles assainies, 02/11/2021,negative
-19,Aicha, 15/11/1999, Grand Yoff, 02/11/2021,negative
+1,Awa, 26-08-1994, Thiaroye Azur, 05-11-2021,negative
+2,Aida, 05-07-1990,HLM 6, 05-11-2021,negative
+3,Khady, 27-10-1965, Scat Urbam, 05-11-2021,positive
+4,Maty, 18-03-1997, Cite Isra, 05-11-2021,negative
+5,Mamy, 09-02-2000,Mermoz, 02-11-2021,positive
+6,Kany, 18-12-1994, HLM Grand Yoff, 02-11-2021,negative
+7,Vanessa, 10-06-1994,Ouest Foire, 02/11/2021,negative
+8,Chérif, 20-11-1959, Diourbel, 02-11-2021,negative
+9,Abdoulaye,08-04-1986, Bambey, 02-11-2021,negative
+10,Cheikh, 26-10-2002,Jet d eau, 02-11-2021,negative
+11,Malick, 26-02-2006,Cite Ousmane Fall, 02/11/2021,positive
+12,Yacine, 31-10-1999, Colobane, 02-11-2021,negative
+13,Kadia, 10-10-1992,HLM Grand Medine, 02-11-2021,negative
+14,Bintou, 17-12-1993,Keur Mbaye Fall, 02-11-2021,positive
+15,Diarra, 17-09-1993,Sicap Foire, 02-11-2021,negative
+16,Nene, 20-07-1950,Mamelles, 02-11-2021,positive
+17,Fanta, 05-11-2020,Sicap Mbao, 02-11-2021,positive
+18,Moussa, 11-02-1992,Parcelles assainies, 02-11-2021,negative
+19,Aicha, 15-11-1999, Grand Yoff, 02-11-2021,negative
