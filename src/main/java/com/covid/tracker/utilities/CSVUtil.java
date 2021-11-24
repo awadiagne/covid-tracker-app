@@ -46,12 +46,16 @@ public class CSVUtil {
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
 
             for (CSVRecord csvRecord : csvRecords) {
+                String [] dayMonthYear = csvRecord.get(3).split("-");
                 CovidPatient covidPatient = new CovidPatient(
                         csvRecord.get(0),
                         new SimpleDateFormat("dd-MM-yyyy").parse(csvRecord.get(1)),
                         csvRecord.get(2),
-                        new SimpleDateFormat("dd-MM-yyyy").parse(csvRecord.get(3)),
-                        csvRecord.get(4).equalsIgnoreCase(POS)
+                        dayMonthYear[0],
+                        dayMonthYear[1],
+                        dayMonthYear[2],
+                        csvRecord.get(4).equalsIgnoreCase(POS),
+                        csvRecord.get(5)
                 );
                 covidPatients.add(covidPatient);
             }
@@ -94,13 +98,17 @@ public class CSVUtil {
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
 
             for (CSVRecord csvRecord : csvRecords) {
+                String [] dayMonthYear = csvRecord.get(4).split("-");
                 CovidPatient covidPatient = new CovidPatient(
                         Long.parseLong(csvRecord.get(0)),
                         csvRecord.get(1),
                         new SimpleDateFormat("dd-MM-yyyy").parse(csvRecord.get(2)),
                         csvRecord.get(3),
-                        new SimpleDateFormat("dd-MM-yyyy").parse(csvRecord.get(4)),
-                        csvRecord.get(5).equalsIgnoreCase(POS)
+                        dayMonthYear[0],
+                        dayMonthYear[1],
+                        dayMonthYear[2],
+                        csvRecord.get(5).equalsIgnoreCase(POS),
+                        csvRecord.get(6)
                 );
                 covidPatients.add(covidPatient);
             }
@@ -142,7 +150,7 @@ public class CSVUtil {
              CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Name", "Date Of Birth", "Address", "Test Date", "Test Result"))) {
 
             for (CovidPatient covidPatient : covidPatients) {
-                csvPrinter.printRecord(covidPatient.getName(), covidPatient.getDateOfBirth(), covidPatient.getAddress(), covidPatient.getTestDate(), covidPatient.isTestResult());
+                csvPrinter.printRecord(covidPatient.getName(), covidPatient.getDateOfBirth(), covidPatient.getAddress(), covidPatient.getDay() + "-" + covidPatient.getMonth() + "-" + covidPatient.getYear(), covidPatient.isTestResult());
             }
             csvPrinter.flush();
         } catch (IOException e) {

@@ -6,15 +6,19 @@ import com.covid.tracker.beans.VaccinatedPeople;
 import com.covid.tracker.beans.VaccinatedPeopleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +30,8 @@ public class CSVService {
     CovidPatientRepository covidPatientRepository;
     @Autowired
     VaccinatedPeopleRepository vaccinatedPeopleRepository;
+    @Autowired
+    EntityManager em;
 
     public String addCovidPatients(MultipartFile file) throws IOException, ParseException {
         String result = "";
@@ -59,16 +65,44 @@ public class CSVService {
         return result;
     }
 
-    public Page<CovidPatient> getCovidPatients(Pageable pageable) {
-        if(!covidPatientRepository.findAll(pageable).isEmpty())
-            return covidPatientRepository.findAll(pageable);
-        throw new NoResultException("No result found");
+    public List<CovidPatient> getCovidPatientsPerDayPerCountry(int pageNum, int pageSize, String dayMonthYear, String country) {
+        //Pageable paging = PageRequest.of(pageNum, pageSize, Sort.by(sort));
+        String dayMonthYearTab[] = dayMonthYear.split("-");
+
+        return em.createNamedQuery("findAllCovidPatientsPerDayPerCountry", CovidPatient.class)
+                .setParameter("day", dayMonthYearTab[0])
+                .setParameter("month", dayMonthYearTab[1])
+                .setParameter("year", dayMonthYearTab[2])
+                .setParameter("country", country)
+                .setFirstResult(pageNum)
+                .setMaxResults(pageSize)
+                .getResultList();
+
+        /*if (pagedResult.hasContent())
+            return pagedResult.getContent();
+        return new ArrayList<>();*/
     }
 
-    public Page<VaccinatedPeople> getVaccinatedPeople(Pageable pageable) {
-        if(!vaccinatedPeopleRepository.findAll(pageable).isEmpty())
-            return vaccinatedPeopleRepository.findAll(pageable);
-        throw new NoResultException("No result found");
+    public List<CovidPatient> getCovidPatientsPerMonthPerCountry(int pageNum, int pageSize, String monthYear, String country) {
+        String dayMonthYearTab[] = monthYear.split("-");
+
+        return em.createNamedQuery("findAllCovidPatientsPerMonthPerCountry", CovidPatient.class)
+                .setParameter("month", dayMonthYearTab[0])
+                .setParameter("year", dayMonthYearTab[1])
+                .setParameter("country", country)
+                .setFirstResult(pageNum)
+                .setMaxResults(pageSize)
+                .getResultList();
+    }
+
+    public List<CovidPatient> getCovidPatientsPerYearPerCountry(int pageNum, int pageSize,  String year, String country) {
+
+        return em.createNamedQuery("findAllCovidPatientsPerYearPerCountry", CovidPatient.class)
+                .setParameter("year", year)
+                .setParameter("country", country)
+                .setFirstResult(pageNum)
+                .setMaxResults(pageSize)
+                .getResultList();
     }
 
     public CovidPatient getCovidPatientByName(String name) {

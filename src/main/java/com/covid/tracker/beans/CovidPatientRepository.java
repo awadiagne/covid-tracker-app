@@ -1,7 +1,9 @@
 package com.covid.tracker.beans;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface CovidPatientRepository extends JpaRepository<CovidPatient, Long> {
-    public CovidPatient findByName(String name);
+
+public interface CovidPatientRepository extends PagingAndSortingRepository<CovidPatient, Long> {
+    CovidPatient findByName(String name);
+
 }

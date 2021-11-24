@@ -1,20 +1,20 @@
-Name,Date of Birth,Address, Test Date, Test Result
-Awa, 26-08-1994, Thiaroye Azur, 02-11-2021,positive
-Aida, 05-07-1990,HLM 6, 02-11-2021,negative
-Khady, 27-10-1965, Scat Urbam, 02-11-2021,positive
-Maty, 18-03-1997, Cite Isra, 02-11-2021,negative
-Mamy, 09-02-2000,Mermoz, 02-11-2021,positive
-Kany, 18-12-1994, HLM Grand Yoff, 02-11-2021,negative
-Vanessa, 10-06-1994,Ouest Foire, 02-11-2021,negative
-Cherif, 20-11-1959, Diourbel, 02-11-2021,negative
-Abdoulaye,08-04-1986, Bambey, 02-11-2021,negative
-Cheikh, 26-10-2002,Jet d'eau, 02-11-2021,negative
-Malick, 26-02-2006,Cite Ousmane Fall, 02-11-2021,positive
-Yacine, 31-10-1999, Colobane, 02-11-2021,negative
-Kadia, 10-10-1992,HLM Grand Medine, 02-11-2021,negative
-Bintou, 17-12-1993,Keur Mbaye Fall, 02-11-2021,positive
-Diarra, 17-09-1993,Sicap Foire, 02-11-2021,negative
-Nene, 20-07-1950,Mamelles, 02-11-2021,positive
-Fanta, 05-11-2020,Sicap Mbao, 02-11-2021,positive
-Moussa, 11-02-1992,Parcelles assainies, 02-11-2021,negative
-Aicha, 15-11-1999, Grand Yoff, 02-11-2021,negative
+Name,Date of Birth,Address, Test Date, Test Result, Country
+Awa, 26-08-1994, Thiaroye Azur, 02-11-2021,positive, Senegal
+Aida, 05-07-1990,HLM 6, 02-11-2021,negative, Mali
+Khady, 27-10-1965, Scat Urbam, 02-11-2021,positive, Bissau Guinea
+Maty, 18-03-1997, Cite Isra, 02-11-2021,negative, Senegal
+Mamy, 09-02-2000,Mermoz, 02-11-2021,positive, Mali
+Kany, 18-12-1994, HLM Grand Yoff, 02-11-2021,negative, Bissau Guinea
+Vanessa, 10-06-1994,Ouest Foire, 02-11-2021,negative, Senegal
+Cherif, 20-11-1959, Diourbel, 02-11-2021,negative, Mali
+Abdoulaye,08-04-1986, Bambey, 02-11-2021,negative, Bissau Guinea
+Cheikh, 26-10-2002,Jet d'eau, 02-11-2021,negative, Senegal
+Malick, 26-02-2006,Cite Ousmane Fall, 02-11-2021,positive, Mali
+Yacine, 31-10-1999, Colobane, 02-11-2021,negative, Bissau Guinea
+Kadia, 10-10-1992,HLM Grand Medine, 02-11-2021,negative, Senegal
+Bintou, 17-12-1993,Keur Mbaye Fall, 02-11-2021,positive, Mali
+Diarra, 17-09-1993,Sicap Foire, 02-11-2021,negative, Bissau Guinea
+Nene, 20-07-1950,Mamelles, 02-11-2021,positive, Senegal
+Fanta, 05-11-2020,Sicap Mbao, 02-11-2021,positive, Mali
+Moussa, 11-02-1992,Parcelles assainies, 02-11-2021,negative, Bissau Guinea
+Aicha, 15-11-1999, Grand Yoff, 02-11-2021,negative, Senegal
