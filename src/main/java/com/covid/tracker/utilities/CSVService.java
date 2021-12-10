@@ -5,10 +5,6 @@ import com.covid.tracker.beans.CovidPatientRepository;
 import com.covid.tracker.beans.VaccinatedPeople;
 import com.covid.tracker.beans.VaccinatedPeopleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,12 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CSVService {
@@ -77,10 +68,6 @@ public class CSVService {
                 .setFirstResult(pageNum)
                 .setMaxResults(pageSize)
                 .getResultList();
-
-        /*if (pagedResult.hasContent())
-            return pagedResult.getContent();
-        return new ArrayList<>();*/
     }
 
     public List<CovidPatient> getCovidPatientsPerMonthPerCountry(int pageNum, int pageSize, String monthYear, String country) {
