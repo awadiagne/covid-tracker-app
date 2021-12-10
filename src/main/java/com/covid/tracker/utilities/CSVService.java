@@ -15,7 +15,7 @@ import java.text.ParseException;
 import java.util.List;
 
 @Service
-public class CSVService {
+public class CSVService implements ICSVService {
 
     @Autowired
     CovidPatientRepository covidPatientRepository;
@@ -36,7 +36,7 @@ public class CSVService {
         String result = "";
         List<CovidPatient> covidPatients = CSVUtil.loadCSVForModifyingCovidPatientsInDB(file.getInputStream());
         covidPatientRepository.saveAll(covidPatients);
-        result = "Records saved in DB";
+        result = "Records modified in DB";
         return result;
     }
 
@@ -52,7 +52,7 @@ public class CSVService {
         String result = "";
         List<VaccinatedPeople> vaccinatedPeople = CSVUtil.loadCSVForModifyingVaccinatedPeopleInDB(file.getInputStream());
         vaccinatedPeopleRepository.saveAll(vaccinatedPeople);
-        result = "Records saved in DB";
+        result = "Records modified in DB";
         return result;
     }
 

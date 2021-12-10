@@ -96,7 +96,6 @@ class CovidController {
         @GetMapping("/getCovidPatientsPerDayPerCountry")
         public ResponseEntity<List<CovidPatient>> getCovidPatientsPerDayPerCountry(@RequestParam(defaultValue = "0") Integer pageNum,
                                                                                    @RequestParam(defaultValue = "10") Integer pageSize,
-                                                                                   @RequestParam(defaultValue = "name") String sortBy,
                                                                                    @RequestParam(defaultValue = "") String dayMonthYear,
                                                                                    @RequestParam(defaultValue = "") String country)  {
             log.info("---------- -getCovidPatientsPerDayPerCountry Begin ---------");
@@ -109,7 +108,6 @@ class CovidController {
         @GetMapping("/getCovidPatientsPerMonthPerCountry")
         public ResponseEntity<List<CovidPatient>> getCovidPatientsPerMonthPerCountry(@RequestParam(defaultValue = "0") Integer pageNum,
                                                                                      @RequestParam(defaultValue = "10") Integer pageSize,
-                                                                                     @RequestParam(defaultValue = "name") String sortBy,
                                                                                      @RequestParam String monthYear,
                                                                                      @RequestParam String country)  {
             List<CovidPatient> covidPatientList = fileService.getCovidPatientsPerMonthPerCountry(pageNum, pageSize, monthYear, country);
@@ -120,7 +118,6 @@ class CovidController {
         @GetMapping("/getCovidPatientsPerYearPerCountry")
         public ResponseEntity<List<CovidPatient>> getCovidPatientsPerYearPerCountry(@RequestParam(defaultValue = "0") Integer pageNum,
                                                                                     @RequestParam(defaultValue = "10") Integer pageSize,
-                                                                                    @RequestParam(defaultValue = "name") String sortBy,
                                                                                     @RequestParam String year,
                                                                                     @RequestParam String country)  {
             List<CovidPatient> covidPatientList = fileService.getCovidPatientsPerYearPerCountry(pageNum, pageSize, year, country);
