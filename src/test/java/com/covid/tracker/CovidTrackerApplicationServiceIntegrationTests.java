@@ -47,7 +47,7 @@ public class CovidTrackerApplicationServiceIntegrationTests {
 
         Mockito.when(covidPatientRepository.findByName(patient.getName())).thenReturn(patient);
 
-        VaccinatedPeople vaccinatedPeople = new VaccinatedPeople("Boubou", new SimpleDateFormat().parse("17-03-2006"), "Mermoz",new SimpleDateFormat().parse("07/10/2021"),new SimpleDateFormat().parse("07/12/2021"));
+        VaccinatedPeople vaccinatedPeople = new VaccinatedPeople("Boubou", new SimpleDateFormat().parse("17-03-2006"), "Mermoz",new SimpleDateFormat().parse("07-10-2021"),new SimpleDateFormat().parse("07/12/2021"));
 
         Mockito.when(vaccinatedPeopleRepository.findByName(vaccinatedPeople.getName())).thenReturn(vaccinatedPeople);
     }

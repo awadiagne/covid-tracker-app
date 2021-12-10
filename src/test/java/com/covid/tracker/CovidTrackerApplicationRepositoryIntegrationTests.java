@@ -45,7 +45,7 @@ public class CovidTrackerApplicationRepositoryIntegrationTests {
     @Test
     public void whenFindByName_thenReturnVaccinatedPeople() throws ParseException {
         // given
-        VaccinatedPeople vaccinatedPeople = new VaccinatedPeople("Ali", new SimpleDateFormat().parse("14/11/1996"), "Sacre coeur",new SimpleDateFormat().parse("07/10/2021"),new SimpleDateFormat().parse("07/12/2021"));
+        VaccinatedPeople vaccinatedPeople = new VaccinatedPeople("Ali", new SimpleDateFormat().parse("14-11-1996"), "Sacre coeur",new SimpleDateFormat().parse("07-10-2021"),new SimpleDateFormat().parse("07-12-2021"));
         entityManager.persist(vaccinatedPeople);
         entityManager.flush();
 
