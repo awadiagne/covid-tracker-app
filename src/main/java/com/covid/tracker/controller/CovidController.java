@@ -101,7 +101,6 @@ class CovidController {
                                                                                    @RequestParam(defaultValue = "") String country)  {
             log.info("---------- -getCovidPatientsPerDayPerCountry Begin ---------");
             List<CovidPatient> covidPatientList = fileService.getCovidPatientsPerDayPerCountry(pageNum, pageSize, dayMonthYear, country);
-            log.info("Covid Patient List found : " + covidPatientList.get(0) + "\n" + covidPatientList.get(0));
             log.info("---------- -getCovidPatientsPerDayPerCountry End ---------");
             return new ResponseEntity<List<CovidPatient>>(covidPatientList, new HttpHeaders(), HttpStatus.OK);
         }
