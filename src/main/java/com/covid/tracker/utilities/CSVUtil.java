@@ -46,6 +46,7 @@ public class CSVUtil {
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
 
             for (CSVRecord csvRecord : csvRecords) {
+                log.info(csvRecord.toString());
                 String [] dayMonthYear = csvRecord.get(3).split("-");
                 CovidPatient covidPatient = new CovidPatient(
                         csvRecord.get(0),
@@ -74,6 +75,7 @@ public class CSVUtil {
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
 
             for (CSVRecord csvRecord : csvRecords) {
+                log.info(csvRecord.toString());
                 VaccinatedPeople vaccinatedPeople = new VaccinatedPeople(
                         csvRecord.get(0),
                         new SimpleDateFormat("dd-MM-yyyy").parse(csvRecord.get(1)),
@@ -98,6 +100,7 @@ public class CSVUtil {
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
 
             for (CSVRecord csvRecord : csvRecords) {
+                log.info(csvRecord.toString());
                 String [] dayMonthYear = csvRecord.get(4).split("-");
                 CovidPatient covidPatient = new CovidPatient(
                         Long.parseLong(csvRecord.get(0)),
@@ -128,6 +131,7 @@ public class CSVUtil {
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
 
             for (CSVRecord csvRecord : csvRecords) {
+                log.info(csvRecord.toString());
                 VaccinatedPeople vaccinatedPeople = new VaccinatedPeople(
                         Long.parseLong(csvRecord.get(0)),
                         csvRecord.get(1),

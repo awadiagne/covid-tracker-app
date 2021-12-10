@@ -5,8 +5,8 @@ Id,Name,Date of Birth,Address, Test Date, Test Result, Country
 4,Maty, 18-03-1997, Cite Isra, 05-11-2021,negative, Senegal
 5,Mamy, 09-02-2000,Mermoz, 02-11-2021,positive, Mali
 6,Kany, 18-12-1994, HLM Grand Yoff, 02-11-2021,negative, Bissau Guinea
-7,Vanessa, 10-06-1994,Ouest Foire, 02/11/2021,negative, Senegal
-8,Chérif, 20-11-1959, Diourbel, 02-11-2021,negative, Mali
+7,Vanessa, 10-06-1994,Ouest Foire, 02-11-2021,negative, Senegal
+8,Cherif, 20-11-1959, Diourbel, 02-11-2021,negative, Mali
 9,Abdoulaye,08-04-1986, Bambey, 02-11-2021,negative, Bissau Guinea
 10,Cheikh, 26-10-2002,Jet d eau, 02-11-2021,negative, Senegal
 11,Malick, 26-02-2006,Cite Ousmane Fall, 02-11-2021,positive, Mali

@@ -15,6 +15,7 @@ public class VaccinatedPeople{
     private Date firstVaccineDate;
     private Date secondVaccineDate;
 
+    public VaccinatedPeople(){};
     public VaccinatedPeople(String name, Date dateOfBirth, String address, Date firstVaccineDate, Date secondVaccineDate) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
