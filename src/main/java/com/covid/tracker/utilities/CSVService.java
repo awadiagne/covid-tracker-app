@@ -28,8 +28,6 @@ public class CSVService implements ICSVService {
     VaccinatedPeopleRepository vaccinatedPeopleRepository;
     @Autowired
     EntityManager em;
-    @Autowired
-    private ModelMapper modelMapper;
 
     public String addCovidPatients(MultipartFile file) throws IOException, ParseException {
         String result = "";
@@ -105,21 +103,9 @@ public class CSVService implements ICSVService {
         throw new NoResultException("No result found");
     }
 
-    public Optional<CovidPatient> getCovidPatientById(Long id) {
-        if(covidPatientRepository.findById(id) != null)
-            return covidPatientRepository.findById(id);
-        throw new NoResultException("No result found");
-    }
-
     public VaccinatedPeople getVaccinatedPeopleByName(String name) {
         if(vaccinatedPeopleRepository.findByName(name) != null)
             return vaccinatedPeopleRepository.findByName(name);
-        throw new NoResultException("No result found");
-    }
-
-    public Optional<VaccinatedPeople> getVaccinatedPeopleById(Long id) {
-        if(vaccinatedPeopleRepository.findById(id) != null)
-            return vaccinatedPeopleRepository.findById(id);
         throw new NoResultException("No result found");
     }
 }
