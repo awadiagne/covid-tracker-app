@@ -2,12 +2,16 @@ package com.covid.tracker.utilities;
 
 import com.covid.tracker.beans.CovidPatient;
 import com.covid.tracker.beans.VaccinatedPeople;
+import com.covid.tracker.dto.CovidPatientDto;
+import com.covid.tracker.dto.VaccinatedPeopleDto;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,9 +31,12 @@ import java.util.Locale;
 public class CSVUtil {
     public static String TYPE = "text/csv";
     static String[] DETAILS_FOR_COVID_PATIENTS = { "Name","Date of Birth","Address","Test Date", "Test Result"};
-    static String[] DETAILS_FOR_VACCINATED_PEOPLE = { "Name","Date of Birth","Address","Test Date", "Test Result"};
+    static String[] DETAILS_FOR_VACCINATED_PEOPLE = { "Name","Date of Birth","Address","First Vaccine Date", "Second Vaccine Date"};
     static final String POS = "positive";
     private static final Logger log = LoggerFactory.getLogger(CSVUtil.class);
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     public static boolean isCSVFile(MultipartFile file) {
         return  TYPE.equals(file.getContentType());
@@ -162,4 +169,5 @@ public class CSVUtil {
         }
         log.info("---------- getCovidPatients End ----------");
     }
+
 }

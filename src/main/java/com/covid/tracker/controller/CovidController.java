@@ -1,8 +1,12 @@
 package com.covid.tracker.controller;
 
 import com.covid.tracker.beans.CovidPatient;
+import com.covid.tracker.beans.VaccinatedPeople;
+import com.covid.tracker.dto.CovidPatientDto;
+import com.covid.tracker.dto.VaccinatedPeopleDto;
 import com.covid.tracker.utilities.CSVService;
 import com.covid.tracker.utilities.CSVUtil;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 class CovidController {
@@ -22,12 +27,14 @@ class CovidController {
         private static final Logger log = LoggerFactory.getLogger(CovidController.class);
         @Autowired
         CSVService fileService;
-    
+        @Autowired
+        private ModelMapper modelMapper;
+
         @GetMapping("/")
         public ResponseEntity<String>  home(){
             log.info("---------- Home Begin----------");
             String message = "Welcome to the upload covid cases and vaccinated people service ! \nThe CSV Files to upload are expected to be in this format :  {Name,Date of Birth,Address,Test Date,Test Result} for Covid Patients and {Name,Date of Birth,Address,First Vaccine Date,Second Vaccine Date} for Vaccinated People";
-            log.info("Displaying : "+message);
+            log.info("Displaying : " + message);
             log.info("---------- Home End----------");
             return ResponseEntity.status(HttpStatus.OK).body(message);
         }
@@ -94,34 +101,75 @@ class CovidController {
 
         // Get Covid Patients per day per country
         @GetMapping("/getCovidPatientsPerDayPerCountry")
-        public ResponseEntity<List<CovidPatient>> getCovidPatientsPerDayPerCountry(@RequestParam(defaultValue = "0") Integer pageNum,
-                                                                                   @RequestParam(defaultValue = "10") Integer pageSize,
-                                                                                   @RequestParam(defaultValue = "") String dayMonthYear,
-                                                                                   @RequestParam(defaultValue = "") String country)  {
+        @ResponseBody
+        public List<CovidPatientDto> getCovidPatientsPerDayPerCountry(@RequestParam(defaultValue = "0") Integer pageNum,
+                                                                      @RequestParam(defaultValue = "10") Integer pageSize,
+                                                                      @RequestParam String dayMonthYear,
+                                                                      @RequestParam String country)  {
             log.info("---------- -getCovidPatientsPerDayPerCountry Begin ---------");
+
             List<CovidPatient> covidPatientList = fileService.getCovidPatientsPerDayPerCountry(pageNum, pageSize, dayMonthYear, country);
+            if(!covidPatientList.isEmpty()){
+                log.info("List fetched : " + covidPatientList.toString());
+            }else{
+                log.info("No records found !");
+            }
+
             log.info("---------- -getCovidPatientsPerDayPerCountry End ---------");
-            return new ResponseEntity<List<CovidPatient>>(covidPatientList, new HttpHeaders(), HttpStatus.OK);
+
+            return covidPatientList.stream()
+                    .map(this::convertCovidPatientToDto)
+                    .collect(Collectors.toList());
         }
 
         // Get Covid Patients per month per country
         @GetMapping("/getCovidPatientsPerMonthPerCountry")
-        public ResponseEntity<List<CovidPatient>> getCovidPatientsPerMonthPerCountry(@RequestParam(defaultValue = "0") Integer pageNum,
-                                                                                     @RequestParam(defaultValue = "10") Integer pageSize,
-                                                                                     @RequestParam String monthYear,
-                                                                                     @RequestParam String country)  {
+        @ResponseBody
+        public List<CovidPatientDto> getCovidPatientsPerMonthPerCountry(@RequestParam(defaultValue = "0") Integer pageNum,
+                                                                        @RequestParam(defaultValue = "10") Integer pageSize,
+                                                                        @RequestParam String monthYear,
+                                                                        @RequestParam String country)  {
+            log.info("---------- -getCovidPatientsPerMonthPerCountry Begin ---------");
+
             List<CovidPatient> covidPatientList = fileService.getCovidPatientsPerMonthPerCountry(pageNum, pageSize, monthYear, country);
-            return new ResponseEntity<List<CovidPatient>>(covidPatientList, new HttpHeaders(), HttpStatus.OK);
-        }
+            if(!covidPatientList.isEmpty()){
+                log.info("List fetched : " + covidPatientList.toString());
+            }else{
+                log.info("No records found !");
+            }
+
+            log.info("---------- -getCovidPatientsPerMonthPerCountry End ---------");
+
+            return covidPatientList.stream()
+                    .map(this::convertCovidPatientToDto)
+                    .collect(Collectors.toList());        }
 
         // Get Covid Patients per year per country
         @GetMapping("/getCovidPatientsPerYearPerCountry")
-        public ResponseEntity<List<CovidPatient>> getCovidPatientsPerYearPerCountry(@RequestParam(defaultValue = "0") Integer pageNum,
-                                                                                    @RequestParam(defaultValue = "10") Integer pageSize,
-                                                                                    @RequestParam String year,
-                                                                                    @RequestParam String country)  {
+        @ResponseBody
+        public List<CovidPatientDto> getCovidPatientsPerYearPerCountry(@RequestParam(defaultValue = "0") Integer pageNum,
+                                                                       @RequestParam(defaultValue = "10") Integer pageSize,
+                                                                       @RequestParam String year,
+                                                                       @RequestParam String country)  {
+            log.info("---------- -getCovidPatientsPerYearPerCountry Begin ---------");
+
             List<CovidPatient> covidPatientList = fileService.getCovidPatientsPerYearPerCountry(pageNum, pageSize, year, country);
-            return new ResponseEntity<List<CovidPatient>>(covidPatientList, new HttpHeaders(), HttpStatus.OK);
+            if(!covidPatientList.isEmpty()){
+                log.info("List fetched : " + covidPatientList.toString());
+            }else{
+                log.info("No records found !");
+            }
+
+            log.info("---------- -getCovidPatientsPerYearPerCountry End ---------");
+
+            return covidPatientList.stream()
+                    .map(this::convertCovidPatientToDto)
+                    .collect(Collectors.toList());
         }
 
+        private CovidPatientDto convertCovidPatientToDto(CovidPatient covidPatient) {
+            CovidPatientDto covidPatientDto = modelMapper.map(covidPatient, CovidPatientDto.class);
+
+            return covidPatientDto;
+        }
 }

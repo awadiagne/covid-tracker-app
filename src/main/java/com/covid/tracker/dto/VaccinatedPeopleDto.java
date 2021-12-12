@@ -1,22 +1,18 @@
-package com.covid.tracker.beans;
+package com.covid.tracker.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.util.Date;
 
-@Entity
-public class VaccinatedPeople{
+public class VaccinatedPeopleDto {
 
-    private @Id @GeneratedValue Long id;
+    private Long id;
     private String name;
     private Date dateOfBirth;
     private String address;
     private Date firstVaccineDate;
     private Date secondVaccineDate;
 
-    public VaccinatedPeople(){};
-    public VaccinatedPeople(String name, Date dateOfBirth, String address, Date firstVaccineDate, Date secondVaccineDate) {
+    public VaccinatedPeopleDto(){}
+    public VaccinatedPeopleDto(String name, Date dateOfBirth, String address, Date firstVaccineDate, Date secondVaccineDate) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
@@ -24,7 +20,7 @@ public class VaccinatedPeople{
         this.secondVaccineDate = secondVaccineDate;
     }
 
-    public VaccinatedPeople(Long id,String name, Date dateOfBirth, String address, Date firstVaccineDate, Date secondVaccineDate) {
+    public VaccinatedPeopleDto(Long id,String name, Date dateOfBirth, String address, Date firstVaccineDate, Date secondVaccineDate) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -79,10 +75,5 @@ public class VaccinatedPeople{
 
     public void setSecondVaccineDate(Date secondVaccineDate) {
         this.secondVaccineDate = secondVaccineDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Patient {" + "id=" + this.id + ", name='" + this.name + '\'' + ", Date Of Birth ='" + this.dateOfBirth + '\'' + ", Address ='" + this.address  + '\'' + '}' + ", First Vaccine Date ='" + this.firstVaccineDate + '\'' + ", Second Vaccine Date ='" + this.secondVaccineDate;
     }
 }
