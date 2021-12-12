@@ -1,16 +1,13 @@
 package com.covid.tracker.controller;
 
 import com.covid.tracker.beans.CovidPatient;
-import com.covid.tracker.beans.VaccinatedPeople;
 import com.covid.tracker.dto.CovidPatientDto;
-import com.covid.tracker.dto.VaccinatedPeopleDto;
-import com.covid.tracker.utilities.CSVService;
 import com.covid.tracker.utilities.CSVUtil;
+import com.covid.tracker.utilities.ICSVService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +23,7 @@ class CovidController {
 
         private static final Logger log = LoggerFactory.getLogger(CovidController.class);
         @Autowired
-        CSVService fileService;
+        ICSVService fileService;
         @Autowired
         private ModelMapper modelMapper;
 

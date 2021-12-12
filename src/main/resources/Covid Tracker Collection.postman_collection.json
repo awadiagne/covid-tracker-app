@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "4c155482-6def-42cf-a0ce-871a06ab3093",
+		"name": "Covid Tracker Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/addCovidPatients",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/A661551/IdeaProjects/covid-tracker/src/main/resources/Covid_Patients.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/addCovidPatients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addCovidPatients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/modifyCovidPatients",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/A661551/IdeaProjects/covid-tracker/src/main/resources/Covid_Patients_to_modify.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/modifyCovidPatients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"modifyCovidPatients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/addVaccinatedPeople",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/A661551/IdeaProjects/covid-tracker/src/main/resources/Vaccinated_People.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/addVaccinatedPeople",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addVaccinatedPeople"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/modifyVaccinatedPeople",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/A661551/IdeaProjects/covid-tracker/src/main/resources/Vaccinated_People_to_modify.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/modifyVaccinatedPeople",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"modifyVaccinatedPeople"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/getCovidPatientsPerDayPerCountry?dayMonthYear=02-11-2021&country=Senegal",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getCovidPatientsPerDayPerCountry?dayMonthYear=02-11-2021&country=Senegal&pageNum=2&pageSize=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getCovidPatientsPerDayPerCountry"
+					],
+					"query": [
+						{
+							"key": "dayMonthYear",
+							"value": "02-11-2021"
+						},
+						{
+							"key": "country",
+							"value": "Senegal"
+						},
+						{
+							"key": "pageNum",
+							"value": "2"
+						},
+						{
+							"key": "pageSize",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/getCovidPatientsPerDayPerCountry?dayMonthYear=02-11-2021&country=Senegal Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getCovidPatientsPerMonthPerCountry?monthYear=11-2021&country=Mali",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getCovidPatientsPerMonthPerCountry"
+					],
+					"query": [
+						{
+							"key": "monthYear",
+							"value": "11-2021"
+						},
+						{
+							"key": "country",
+							"value": "Mali"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/getCovidPatientsPerDayPerCountry?dayMonthYear=02-11-2021&country=Senegal Copy 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getCovidPatientsPerYearPerCountry?year=2021&country=Bissau Guinea",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getCovidPatientsPerYearPerCountry"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2021"
+						},
+						{
+							"key": "country",
+							"value": "Bissau Guinea"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
